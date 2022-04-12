@@ -45,20 +45,20 @@ export const AnimalForm = () => {
                 updateAnimal({
                     id: animal.id,
                     name: animal.name,
-                    breed: animal.breed,
-                    locationId: locationId,
                     status: animal.status,
-                    customerId: parseInt(localStorage.getItem("kennel_customer"))
+                    breed: animal.breed,
+                    customerId: parseInt(localStorage.getItem("kennel_customer")),
+                    locationId: locationId
                 })
                     .then(() => history.push("/animals"))
             } else {
                 // POST
                 addAnimal({
                     name: animal.name,
-                    breed: animal.breed,
-                    locationId: locationId,
                     status: animal.status,
-                    customerId: parseInt(localStorage.getItem("kennel_customer"))
+                    breed: animal.breed,
+                    customerId: parseInt(localStorage.getItem("kennel_customer")),
+                    locationId: locationId
                 })
                     .then(() => history.push("/animals"))
             }

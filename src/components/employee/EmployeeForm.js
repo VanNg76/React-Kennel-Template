@@ -2,24 +2,25 @@ import React, { useState, useRef, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
 import { addEmployee } from "./EmployeeManager"
 import { getLocations } from "../location/LocationManager"
-import { getAnimals } from "../animal/AnimalManager"
+// import { getAnimals } from "../animal/AnimalManager"
 import "./Employees.css"
 
 export const EmployeeForm = () => {
     const name = useRef(null)
+    const address = useRef(null)
     const location = useRef(null)
-    const animal = useRef(null)
+    // const animal = useRef(null)
 
     const history = useHistory()
 
-    const [animals, setAnimals] = useState([])
+    // const [animals, setAnimals] = useState([])
     const [locations, setLocations] = useState([])
 
     /*
         Get animal state and location state on initialization.
     */
     useEffect(() => {
-       getAnimals().then(animalsData => setAnimals(animalsData))
+    //    getAnimals().then(animalsData => setAnimals(animalsData))
        getLocations().then(locationsData => setLocations(locationsData))
     }, [])
 
@@ -31,15 +32,14 @@ export const EmployeeForm = () => {
             but rather `.current.value` now in React.
         */
         const locationId = parseInt(location.current.value)
-        const animalId = parseInt(animal.current.value)
 
         if (locationId === 0) {
             window.alert("Please select a location")
         } else {
             addEmployee({
                 name: name.current.value,
-                locationId,
-                animalId
+                address: address.current.value,
+                locationId: locationId
             })
             .then(() => history.push("/employees"))
         }
@@ -54,6 +54,14 @@ export const EmployeeForm = () => {
                     <input type="text" id="employeeName" ref={name} required autoFocus className="form-control" placeholder="Employee name" />
                 </div>
             </fieldset>
+
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="employeeAddress">Employee address: </label>
+                    <input type="text" id="employeeAddress" ref={address} required autoFocus className="form-control" placeholder="Employee address" />
+                </div>
+            </fieldset>
+
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="location">Assign to location: </label>
@@ -67,19 +75,7 @@ export const EmployeeForm = () => {
                     </select>
                 </div>
             </fieldset>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="location">Caretaker for: </label>
-                    <select defaultValue="" name="animal" ref={animal} id="employeeAnimal" className="form-control" >
-                        <option value="0">Select an animal</option>
-                        {animals.map(e => (
-                            <option key={e.id} value={e.id}>
-                                {e.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </fieldset>
+            
             <button type="submit"
                 onClick={evt => {
                     evt.preventDefault() // Prevent browser from submitting the form

@@ -11,7 +11,8 @@ export const EmployeeDetail = () => {
     const [employee, setEmployee] = useState({})
 
     useEffect(() => {
-        getEmployeeById(employeeId).then(employeeData => setEmployee(employeeData))
+        getEmployeeById(parseInt(employeeId))
+            .then(employeeData => setEmployee(employeeData))
     }, [employeeId])
 
     return (

@@ -10,7 +10,7 @@ export const AnimalDetails = () => {
     const history = useHistory()
 
     useEffect(() => {
-        getAnimalById(animalId)
+        getAnimalById(parseInt(animalId))
             .then(setAnimal)
     }, [])
 
